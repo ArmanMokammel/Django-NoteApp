@@ -71,6 +71,10 @@ def add_note(request, username):
 
     return render(request, 'add_note.html')
 
+@login_required
+def note_description(request, username):
+    return render(request, 'note_description.html')
+
 def logout(request):
     auth.logout(request)
     return redirect('UserData:login')
