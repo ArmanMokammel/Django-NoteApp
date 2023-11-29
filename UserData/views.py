@@ -80,7 +80,7 @@ def add_note(request, username):
 
 @login_required
 def note_description(request, username, id):
-    if(request.user.username != username or not UserNotes.objects.filter(username=request.user.username).get(pk=id).DoesNotExist):
+    if(request.user.username != username or not UserNotes.objects.filter(username=request.user.username, pk=id).exists()):
         return redirect('UserData:notes_home', request.user.username)
 
     if(request.method == "POST"):
