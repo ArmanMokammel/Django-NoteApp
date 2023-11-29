@@ -49,6 +49,9 @@ def login(request):
 
 @login_required
 def notes_home(request, username):
+    if(request.user.username != username):
+        return redirect('UserData:notes_home', request.user.username)
+    
     get_all_notes = UserNotes.objects.filter(username=username)
     context={
         'usernameee' : username,
@@ -58,6 +61,9 @@ def notes_home(request, username):
 
 @login_required
 def add_note(request, username):
+    if(request.user.username != username):
+        return redirect('UserData:add_note', request.user.username)
+    
     if(request.method == "POST"):
         title = request.POST['title']
         description = request.POST['note_description']
@@ -74,6 +80,9 @@ def add_note(request, username):
 
 @login_required
 def note_description(request, username, id):
+    if(request.user.username != username or not UserNotes.objects.filter(username=request.user.username).get(pk=id).DoesNotExist):
+        return redirect('UserData:notes_home', request.user.username)
+
     if(request.method == "POST"):
         if('update_note' in request.POST):
             title = request.POST['title']
