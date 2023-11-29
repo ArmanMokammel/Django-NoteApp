@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 0;
+    height: 100vh;
+    margin: 0;
+}
+
+.homepage {
+    align-items: left;
+    justify-content: left;
+    margin-left: 5vh;
+    margin-top: 30vh;
+}
+
+.w {
+    font-size: 7vh;
+}
+.typing{
+    font-size: 3vh;
+    justify-content: left;
+}
+.links{
+    margin-top: 10px;
+    margin-left: 30vh;
+}
+.buttons{
+    margin-top: 30px;
+    margin-left: 10px;
+}

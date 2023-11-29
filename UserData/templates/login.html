@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+            <h1 style="margin-bottom: 5vh;">Login</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                <input type="submit" value="login" name="login">Login</input>
+
+                <p>Don't have an Account? <span><a href="signup.html">Signup</a></span></p>
+            </form>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

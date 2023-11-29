@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Notes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'notes_home.css' %}">
+</head>
+<body>
+    <div class="user_side">
+        <h1 class="w">Welcome {{username2}} </h1>
+        <div class="create_note">
+            <a href="{% url 'UserData:add_note' username2 %}" class="btn btn-outline-success txt-success rounded buttons">Take a New Note</a>
+        </div>
+        <div class="logout">
+            <a href="{% url 'UserData:logout' %}" class="btn btn-outline-danger txt-danger rounded buttons">Logout</a>
+        </div>
+    </div>
+
+    <div class="notes_container">
+        <div class="box">
+            <div class="box-header">
+                <strong style="margin-left:5px;">Your Notes</strong>
+                <br><br>
+                <label style="margin-left:5px;">Search</label>
+                <input class="form-control w-75" type="text" id="searchInput" placeholder="Title, label, ...." onkeyup="searchTable()">
+                <br><br>
+            </div>
+            <div class="table-responsive" style="max-height:300px; overflow-y:auto;">
+                <table class="table table-bordered m-0 table7" style="text-align:center;" id="notesTable">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;">ID</th>                            
+                            <th style="text-align:center;">Title</th>
+                            <th style="text-align:center;">Notes</th>
+                            <th style="text-align:center;">Labels</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for note in all_notes %}
+                        <tr>
+                            <td><a href="note_description.html"> {{note.pk}} </a></td>
+                            <td> {{note.title}} </td>
+                            <td> {{note.description}} </td>
+                            <td>Example Label</td>
+                        </tr>
+                        {% endfor %}
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--Table Ends-->
+    </div>
+    
+    <script>
+        function searchTable() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("notesTable");
+            tr = table.getElementsByTagName("tr");
+    
+            // Loop through all table rows, and hide those that don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                for (var j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break;
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
