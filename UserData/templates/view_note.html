@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.ckeditor.com/4.17.0/standard-all/ckeditor.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -247,7 +248,10 @@
         <h1>Note Title</h1>
     </div>
         <div class="description">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <label for="note-description" class="col-sm-2 form-control-label">Description</label>
+            <div class="col-sm-10">
+                <textarea name="note_description" id="note-description" rows="10">{{ user_note.description }}</textarea>
+            </div>
         </div>
         <div class="images">
             <img src="img1.jpg" alt="">
@@ -266,5 +270,14 @@
             <a href="{% url 'UserData:delete_note' usernameee user_note.pk %}" class="delete_button" name="delete_note">Delete</a>
             <a href="{% url 'UserData:update_note' usernameee user_note.pk %}" class="update_button" name="update_note">Update</a>
         </div>
+    <script>
+    // Initialize CKEditor with read-only configuration for note description
+    CKEDITOR.replace('note_description', {
+        readOnly: true,
+        removePlugins: 'toolbar',
+        resize_enabled: false,
+        disableNativeSpellChecker: false
+    });
+    </script>
 </body>
 </html>
