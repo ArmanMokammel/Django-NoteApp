@@ -107,10 +107,11 @@ def note_description(request, username, id):
 
     user_note = UserNotes.objects.get(pk=id)
     context = {
+        'usernameee' : username,
         'user_note' : user_note,
         'mediaUrl' : settings.MEDIA_URL
     }
-    return render(request, 'note_description.html', context=context)
+    return render(request, 'view_note.html', context=context)
 
 @login_required
 def update_note(request, username, id):

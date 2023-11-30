@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 0;
+    height: 100vh;
+    margin: 0;
+}
+.page_title{
+    justify-content: center;
+    text-align: center;
+    margin-top: 10vh;
+}
+.note_form{
+    justify-content: center;
+    margin-top: 10vh;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 25%;   
+}
+.button{
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 25%;
+    margin-bottom: 25%;   
+}

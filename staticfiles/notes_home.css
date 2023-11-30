@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+.user_side{
+    margin-left: 3vh;
+    margin-top: 2vh;
+}
+.user_side .w{
+    font-size: 7vh;
+}
+.user_side .create_note{
+    margin-left: 10px;
+}
+.user_side .logout{
+    margin-left: 190vh;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+.notes_container{
+    margin: 3vh 3vh 3vh ;
+}
+td{
+    max-width:5vh;
+    max-height: 3vh;
+}
