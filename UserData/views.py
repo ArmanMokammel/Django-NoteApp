@@ -67,9 +67,10 @@ def add_note(request, username):
     if(request.method == "POST"):
         title = request.POST['title']
         description = request.POST['note_description']
-        image = None
-        if('image' in request.FILES):
-            image = request.FILES['image']
+        image = request.FILES.get('images')
+        # image = None
+        # if('image' in request.FILES):
+        #     image = request.FILES['image']
 
         new_note = UserNotes.objects.create(title=title, description=description, image=image, username=UserInfo.objects.get(username=username))
         new_note.save()
