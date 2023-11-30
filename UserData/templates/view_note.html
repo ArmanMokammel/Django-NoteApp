@@ -262,8 +262,8 @@
     </div>
         <div class="buttons">
             <a href="{% url 'UserData:notes_home' usernameee %}" class="back_button" name="back">Back</a>
-            <a href="{% url 'UserData:delete_note' usernameee note.pk %}" class="delete_button" name="delete_note">Delete</a>
-            <a href="{% url 'UserData:update_note' usernameee note.pk %}" class="update_button" name="update_note">Update</a>
+            <a href="{% url 'UserData:delete_note' usernameee user_note.pk %}" class="delete_button" name="delete_note">Delete</a>
+            <a href="{% url 'UserData:update_note' usernameee user_note.pk %}" class="update_button" name="update_note">Update</a>
         </div>
 </body>
 </html>
