@@ -85,7 +85,7 @@
         </div>
     </div>
     <script>
-        // Initialize CKEditor with read-only configuration for note description
+    // Initialize CKEditor with read-only configuration for note description
     {% comment %} CKEDITOR.replace('note-description', {
         readOnly: true,
         removePlugins: 'toolbar',
@@ -93,8 +93,10 @@
         disableNativeSpellChecker: false
     }); {% endcomment %}
 
+
     // Initialize CKEditor
-CKEDITOR.replace('note-description');
+    CKEDITOR.replace('note-description');
+
         var selectedImages = []; // Keep track of selected images
 
         function previewImages(input) {
@@ -142,28 +144,6 @@ CKEDITOR.replace('note-description');
             selectedImages = selectedImages.filter(function (item) {
                 return item.element !== imageElement.parentNode;
             });
-        }
-
-        // Function to submit the form with selected images
-        function submitForm() {
-            var form = document.getElementById('noteForm');
-            // Remove the existing images input field
-            var existingImagesInput = document.getElementById('existing-images-input');
-            if (existingImagesInput) {
-                existingImagesInput.remove();
-            }
-
-            // Create a new hidden input field for selected images
-            var imagesInput = document.createElement('input');
-            imagesInput.type = 'hidden';
-            imagesInput.name = 'images';
-            imagesInput.value = JSON.stringify(selectedImages.map(function (item) {
-                return item.file.name;
-            }));
-            form.appendChild(imagesInput);
-
-            // Submit the form
-            form.submit();
         }
     </script>
 
