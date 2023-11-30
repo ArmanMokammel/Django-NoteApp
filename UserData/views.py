@@ -76,8 +76,12 @@ def add_note(request, username):
 
         new_note.save()
         return redirect('UserData:notes_home', username)
+    
+    context={
+        'usernameee' : username
+    }
 
-    return render(request, 'add_note.html')
+    return render(request, 'add_note.html', context=context)
 
 @login_required
 def note_description(request, username, id):
