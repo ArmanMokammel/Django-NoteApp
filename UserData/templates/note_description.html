@@ -56,12 +56,12 @@
 
                     <div class="form-group row">
                       <label for="inputPassword3" class="col-sm-2 form-control-label">Images</label>
-                      {% if user_note.images.all %}
+                      {% if images %}
                           <div id="image-container">
-                              {% for image in user_note.images.all %}
+                              {% for image in images %}
                                   <div class="uploaded-image">
-                                      <img src="{{ mediaUrl }}{{ image.image.url }}" alt="Note Pic">
-                                      <span class="remove-button" onclick="removeImage(this, '{{ mediaUrl }}{{ image.image.url }}')">Remove</span>
+                                      <img src="{{ mediaUrl }}{{ image.image }}" alt="Note Pic">
+                                      <span class="remove-button" onclick="removeImage(this, '{{ mediaUrl }}{{ image.image }}')">Remove</span>
                                   </div>
                               {% endfor %}
                           </div>

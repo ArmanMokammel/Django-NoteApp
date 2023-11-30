@@ -118,6 +118,7 @@ def update_note(request, username, id):
         return redirect('UserData:notes_home', request.user.username)
     
     user_note = UserNotes.objects.get(pk=id)
+    user_images = ImageFile.objects.filter(user_note=user_note)
     
     if(request.method == "POST"):
         title = request.POST['title']
@@ -136,6 +137,7 @@ def update_note(request, username, id):
     context = {
         'usernameee' : username,
         'user_note' : user_note,
+        'images' : user_images,
         'mediaUrl' : settings.MEDIA_URL
     }
     return render(request, 'note_description.html', context=context)
