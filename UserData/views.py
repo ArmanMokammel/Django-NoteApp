@@ -110,8 +110,10 @@ def note_description(request, username, id):
     #         return redirect('UserData:notes_home', username)
 
     user_note = UserNotes.objects.get(pk=id)
+    user_images = ImageFile.objects.filter(user_note=user_note)
     context = {
         'usernameee' : username,
+        'user_images':user_images,
         'user_note' : user_note,
         'mediaUrl' : settings.MEDIA_URL
     }

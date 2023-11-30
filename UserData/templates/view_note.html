@@ -245,7 +245,7 @@
 <body>
     <div class="box">
     <div class="note_title">
-        <h1>Note Title</h1>
+        <h1>{{user_note.title}}</h1>
     </div>
         <div class="description">
             <label for="note-description" class="col-sm-2 form-control-label">Description</label>
@@ -254,15 +254,10 @@
             </div>
         </div>
         <div class="images">
-            <img src="img1.jpg" alt="">
-            <img src="img2.jpg" alt="">
-            <img src="img1.jpg" alt="">
-            <img src="img2.jpg" alt="">
-            <img src="img1.jpg" alt="">
-            <img src="img2.jpg" alt="">
-            <img src="img1.jpg" alt="">
-            <img src="img2.jpg" alt="">
-            <img src="img1.jpg" alt="">
+            {% for image in user_images %}
+            <img src="{{ mediaUrl }}{{ image.image }}" alt="">
+            
+            {% endfor %}
         </div>
     </div>
         <div class="buttons">
