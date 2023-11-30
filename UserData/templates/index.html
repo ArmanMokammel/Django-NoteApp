@@ -1,27 +1,52 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note App</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <title>Sign In & Sign Up Form</title>
+    <link rel="stylesheet" href="index-style.css">
 </head>
 <body>
-    <div class="homepage">
-        <h1 class="w">Welcome to Django Note App</h1>
-        <h3 class="typing" id="typing"></h3>
-    </div>
-    <div class="links">
-        <a class="btn btn-outline-primary txt-primary rounded buttons" href="{% url 'UserData:login' %}" class="">Login</a>
-        <a class="btn btn-outline-success txt-success rounded buttons" href="{% url 'UserData:signup' %}" class="">Signup</a>
-    </div>
-    <script src="{% static 'index.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="ohio">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                <button type="button" class="toggle-btn" onclick="signin()">Sign Up</button>
+            </div>
 
+            <form id="login" class="input-group">
+                <input type="text" class="input-field" placeholder="Enter Username" required>
+                <input type="password" class="input-field" placeholder="Enter Password" required>
+                <button type="submit" class="submit-btn">Log In</button>
+            </form>
+
+            <form id="signup" class="input-group">
+                <input type="email" class="input-field" placeholder="Email Id" required>
+                <input type="text" class="input-field" name="signup_username" placeholder="Set Username" required>
+                <input type="password" class="input-field" name="user_set_pass" placeholder="Set Password" required>
+                <input type="password" class="input-field" name="user_conf_pass" placeholder="Confirm Password" required>
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("signup");
+        var z = document.getElementById("btn");
+
+        function signin(){
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+
+        function login(){
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+        }
+    </script>
 </body>
 </html>
