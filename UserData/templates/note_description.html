@@ -6,51 +6,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Note Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <link rel="stylesheet" href="{% static 'add_note.css' %}">
+    <style>
+        #image-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .uploaded-image {
+            margin: 10px;
+            position: relative;
+        }
+
+        .remove-button {
+            cursor: pointer;
+            color: red;
+            font-weight: bold;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="page_title">
-        <h1 class="w">{{user_note.title}}</h1>
+        <h1 class="w">{{ user_note.title }}</h1>
     </div>
     <div class="col-md-6 note_form">
         <div class="box">
             <div class="box-divider m-0"></div>
             <div class="box-body">
-              <form method="POST">
-                {% csrf_token %}
-                <div class="form-group row">
-                  <label for="title" class="col-sm-2 form-control-label">Title</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="title" class="form-control" id="title" placeholder="Note Title" value="{{user_note.title}}">
-                  </div>
-                </div>
-                
-                <div class="form-group row">
-                  <label for="inputPassword3" class="col-sm-2 form-control-label">Note Description</label>
-                  <div class="col-sm-10">
-                    <textarea class="form-control" name="note_description" placeholder="Add your note" rows="10">{{user_note.description}}</textarea>
-                  </div>
-                </div>
+                <form method="POST" id="noteForm" enctype="multipart/form-data" onsubmit="submitForm(); return false;">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-2 form-control-label">Title</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="title" class="form-control" id="title" placeholder="Note Title"
+                                value="{{ user_note.title }}">
+                        </div>
+                    </div>
 
-                <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-2 form-control-label">Image</label>
-                    <img src="{{mediaUrl}}{{user_note.image}}" alt="Note Pic">
-                </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 form-control-label">Note Description</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="note_description" placeholder="Add your note"
+                                rows="10">{{ user_note.description }}</textarea>
+                        </div>
+                    </div>
 
-                <div class="form-group button">
-                  <div class="col-sm-offset-2 col-sm-10">
-                    <input type="submit" class="btn btn-outline-success txt-success rounded buttons" name="update_note" value="Update">
-                    <input type="submit" class="btn btn-outline-danger txt-danger rounded buttons" name="delete_note" value="Delete">
-                </div>
-                </div>
-              </form>
+                    <div class="form-group row">
+                      <label for="inputPassword3" class="col-sm-2 form-control-label">Images</label>
+                      {% if user_note.images.all %}
+                          <div id="image-container">
+                              {% for image in user_note.images.all %}
+                                  <div class="uploaded-image">
+                                      <img src="{{ mediaUrl }}{{ image.image.url }}" alt="Note Pic">
+                                      <span class="remove-button" onclick="removeImage(this, '{{ mediaUrl }}{{ image.image.url }}')">Remove</span>
+                                  </div>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          <div class="col-sm-10">
+                              <input name="images" type="file" class="form-control" multiple onchange="previewImages(this)">
+                          </div>
+                      {% endif %}
+                  </div>
+
+                    <div class="form-group button">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" class="btn btn-outline-success txt-success rounded buttons"
+                                name="update_note" value="Update">
+                            <a href="#" class="btn btn-outline-danger txt-danger rounded buttons">Cancel</a>
+                        </div>
+                    </div>
+                </form>
             </div>
-          </div>
+        </div>
     </div>
+    <script>
+        var selectedImages = []; // Keep track of selected images
+
+        function previewImages(input) {
+            var imageContainer = document.getElementById('image-container');
+            imageContainer.innerHTML = ''; // Clear existing images
+
+            var files = input.files;
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'uploaded-image';
+                    img.style.width = '100px'; // Set the fixed width
+                    img.style.height = '100px'; // Set the fixed height
+
+                    var removeButton = document.createElement('span');
+                    removeButton.className = 'remove-button';
+                    removeButton.innerHTML = 'Remove';
+                    removeButton.onclick = function () {
+                        removeImage(img, file.name);
+                    };
+
+                    var div = document.createElement('div');
+                    div.appendChild(img);
+                    div.appendChild(removeButton);
+                    imageContainer.appendChild(div);
+
+                    // Add the selected image to the list
+                    selectedImages.push({ element: div, file: file });
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage(imageElement, imageName) {
+            // Remove the image from the displayed preview
+            imageElement.parentNode.remove();
+
+            // Remove the image from the selected images list
+            selectedImages = selectedImages.filter(function (item) {
+                return item.element !== imageElement.parentNode;
+            });
+        }
+
+        // Function to submit the form with selected images
+        function submitForm() {
+            var form = document.getElementById('noteForm');
+            // Remove the existing images input field
+            var existingImagesInput = document.getElementById('existing-images-input');
+            if (existingImagesInput) {
+                existingImagesInput.remove();
+            }
+
+            // Create a new hidden input field for selected images
+            var imagesInput = document.createElement('input');
+            imagesInput.type = 'hidden';
+            imagesInput.name = 'images';
+            imagesInput.value = JSON.stringify(selectedImages.map(function (item) {
+                return item.file.name;
+            }));
+            form.appendChild(imagesInput);
+
+            // Submit the form
+            form.submit();
+        }
+    </script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>

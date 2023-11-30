@@ -35,17 +35,18 @@
                         <tr>
                             <th style="text-align:center;">ID</th>                            
                             <th style="text-align:center;">Title</th>
-                            <th style="text-align:center;">Notes</th>
+                            {% comment %} <th style="text-align:center;">Notes</th> {% endcomment %}
                             <th style="text-align:center;">Labels</th>
                         </tr>
                     </thead>
                     <tbody>
+                        
                         {% for note in all_notes %}
                         <tr>
-                            <td><a href="{% url 'UserData:note_description' usernameee note.pk %}"> {{note.pk}} </a></td>
-                            <td> {{note.title}} </td>
-                            <td> {{note.description}} </td>
-                            <td>Example Label</td>
+                            <td> {{forloop.counter}} </td>
+                            <td> <a href="#"> {{note.title}} </a></td>
+                            {% comment %} <td> {{note.description}} </td> {% endcomment %}
+                            <td><a href="{% url 'UserData:note_description' usernameee note.pk %}" class="btn btn-outline-success txt-success rounded buttons">Update</a> <a href="#" class="btn btn-outline-danger txt-danger rounded buttons">Delete</a> </td>
                         </tr>
                         {% endfor %}
                         <!-- Add more rows as needed -->
