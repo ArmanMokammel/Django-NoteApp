@@ -14,7 +14,7 @@ class UserInfo(models.Model):
 
 class UserNotes(models.Model):
     title=models.CharField(null=True, blank=True, max_length=50)
-    description=models.CharField(null=False, blank=False, max_length=500)
+    description=models.TextField()
     username=models.ForeignKey(UserInfo, null=False, blank=False, on_delete=models.CASCADE)
 
     class Meta:

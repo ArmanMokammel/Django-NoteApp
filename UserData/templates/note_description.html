@@ -7,6 +7,8 @@
     <title>Note Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'add_note.css' %}">
+        <!-- CKEditor CDN -->
+        <script src="https://cdn.ckeditor.com/4.17.0/standard-all/ckeditor.js"></script>
     <style>
         #image-container {
             display: flex;
@@ -47,10 +49,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="inputPassword3" class="col-sm-2 form-control-label">Note Description</label>
+                        <label for="note-description" class="col-sm-2 form-control-label">Note Description</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" name="note_description" placeholder="Add your note"
-                                rows="10">{{ user_note.description }}</textarea>
+                            <textarea name="note_description" id="note-description" rows="10">{{ user_note.description }}</textarea>
                         </div>
                     </div>
 
@@ -60,7 +61,7 @@
                           <div id="image-container">
                               {% for image in images %}
                                   <div class="uploaded-image">
-                                      <img src="{{ mediaUrl }}{{ image.image }}" alt="Note Pic">
+                                      <img src="{{ mediaUrl }}{{ image.image }}" alt="Note Pic" style="width:100px; height:100px; object-fit: cover; margin-right:5px;">
                                       <span class="remove-button" onclick="removeImage(this, '{{ mediaUrl }}{{ image.image }}')">Remove</span>
                                   </div>
                               {% endfor %}
@@ -84,6 +85,16 @@
         </div>
     </div>
     <script>
+        // Initialize CKEditor with read-only configuration for note description
+    {% comment %} CKEDITOR.replace('note-description', {
+        readOnly: true,
+        removePlugins: 'toolbar',
+        resize_enabled: false,
+        disableNativeSpellChecker: false
+    }); {% endcomment %}
+
+    // Initialize CKEditor
+CKEDITOR.replace('note-description');
         var selectedImages = []; // Keep track of selected images
 
         function previewImages(input) {
