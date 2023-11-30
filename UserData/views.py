@@ -2,7 +2,7 @@ from django.conf import settings
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
-from UserData.models import UserInfo, UserNotes
+from UserData.models import ImageFile, UserInfo, UserNotes
 # from .models import UserInfo
 from django.contrib.auth.decorators import login_required
 
@@ -67,14 +67,14 @@ def add_note(request, username):
     if(request.method == "POST"):
         title = request.POST['title']
         description = request.POST['note_description']
-        image = request.FILES.get('images')
-        # image = None
-        # if('image' in request.FILES):
-        #     image = request.FILES['image']
+        image = None
+        new_note = UserNotes.objects.create(title=title, description=description, username=UserInfo.objects.get(username=username))
+        if('images' in request.FILES):
+            for file in request.FILES.getlist('images'):
+                image = ImageFile.objects.create(image=file, user_note=new_note)
+                image.save()
 
-        new_note = UserNotes.objects.create(title=title, description=description, image=image, username=UserInfo.objects.get(username=username))
         new_note.save()
-        print("Notes taken")
         return redirect('UserData:notes_home', username)
 
     return render(request, 'add_note.html')
@@ -84,26 +84,26 @@ def note_description(request, username, id):
     if(request.user.username != username or not UserNotes.objects.filter(username=request.user.username, pk=id).exists()):
         return redirect('UserData:notes_home', request.user.username)
 
-    if(request.method == "POST"):
-        if('update_note' in request.POST):
-            title = request.POST['title']
-            description = request.POST['note_description']
+    # if(request.method == "POST"):
+    #     if('update_note' in request.POST):
+    #         title = request.POST['title']
+    #         description = request.POST['note_description']
             
-            user_note = UserNotes.objects.get(pk=id)
+    #         user_note = UserNotes.objects.get(pk=id)
 
-            user_note.title = title
-            user_note.description = description
-            if('image' in request.FILES):
-                image = request.FILES['image']
-                user_note.image = image
+    #         user_note.title = title
+    #         user_note.description = description
+    #         if('image' in request.FILES):
+    #             image = request.FILES['image']
+    #             user_note.image = image
 
-            user_note.save()
-            return redirect('UserData:notes_home', username)
-        elif ('delete_note' in request.POST):
-            user_note = UserNotes.objects.get(pk=id)
-            user_note.image.delete()
-            user_note.delete()
-            return redirect('UserData:notes_home', username)
+    #         user_note.save()
+    #         return redirect('UserData:notes_home', username)
+    #     elif ('delete_note' in request.POST):
+    #         user_note = UserNotes.objects.get(pk=id)
+    #         user_note.image.delete()
+    #         user_note.delete()
+    #         return redirect('UserData:notes_home', username)
 
     user_note = UserNotes.objects.get(pk=id)
     context = {
@@ -111,6 +111,45 @@ def note_description(request, username, id):
         'mediaUrl' : settings.MEDIA_URL
     }
     return render(request, 'note_description.html', context=context)
+
+@login_required
+def update_note(request, username, id):
+    if(request.user.username != username or not UserNotes.objects.filter(username=request.user.username, pk=id).exists()):
+        return redirect('UserData:notes_home', request.user.username)
+    
+    user_note = UserNotes.objects.get(pk=id)
+    
+    if(request.method == "POST"):
+        title = request.POST['title']
+        description = request.POST['note_description']
+        user_note = UserNotes.objects.get(pk=id)
+        user_note.title = title
+        user_note.description = description
+
+        for file in request.FILES.getlist('images'):
+            image = ImageFile.objects.create(image=file, user_note=user_note)
+            image.save()
+
+        user_note.save()
+        return redirect('UserData:notes_home', username)
+    
+    context = {
+        'usernameee' : username,
+        'user_note' : user_note,
+        'mediaUrl' : settings.MEDIA_URL
+    }
+    return render(request, 'note_description.html', context=context)
+
+def delete_note(request, username, id):
+    user_note = UserNotes.objects.get(pk=id)
+    user_images = ImageFile.objects.filter(user_note=user_note)
+
+    for image in user_images:
+        image.image.delete()
+        image.delete()
+    user_note.delete()
+
+    return redirect('UserData:notes_home', username)
 
 def logout(request):
     auth.logout(request)

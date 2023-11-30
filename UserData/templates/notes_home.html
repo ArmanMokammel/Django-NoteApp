@@ -44,9 +44,9 @@
                         {% for note in all_notes %}
                         <tr>
                             <td> {{forloop.counter}} </td>
-                            <td> <a href="#"> {{note.title}} </a></td>
+                            <td> <a href="{% url 'UserData:note_description' usernameee note.pk %}"> {{note.title}} </a></td>
                             {% comment %} <td> {{note.description}} </td> {% endcomment %}
-                            <td><a href="{% url 'UserData:note_description' usernameee note.pk %}" class="btn btn-outline-success txt-success rounded buttons">Update</a> <a href="#" class="btn btn-outline-danger txt-danger rounded buttons">Delete</a> </td>
+                            <td><a href="{% url 'UserData:note_description' usernameee note.pk %}/update" class="btn btn-outline-success txt-success rounded buttons">Update</a> <a href="{% url 'UserData:delete_note' usernameee note.pk %}" class="btn btn-outline-danger txt-danger rounded buttons">Delete</a> </td>
                         </tr>
                         {% endfor %}
                         <!-- Add more rows as needed -->
