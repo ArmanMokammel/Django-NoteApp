@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,34 +7,35 @@
     <title>Note Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="add_note.css">
+    <link rel="stylesheet" href="{% static 'add_note.css' %}">
 </head>
 <body>
     <div class="page_title">
-        <h1 class="w">Note Title</h1>
+        <h1 class="w">{{user_note.title}}</h1>
     </div>
     <div class="col-md-6 note_form">
         <div class="box">
             <div class="box-divider m-0"></div>
             <div class="box-body">
-              <form role="form">
+              <form method="POST">
+                {% csrf_token %}
                 <div class="form-group row">
                   <label for="title" class="col-sm-2 form-control-label">Title</label>
                   <div class="col-sm-10">
-                    <input type="email" class="form-control" id="title" placeholder="Note Title">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="Note Title" value="{{user_note.title}}">
                   </div>
                 </div>
                 
                 <div class="form-group row">
                   <label for="inputPassword3" class="col-sm-2 form-control-label">Note Description</label>
                   <div class="col-sm-10">
-                    <textarea class="form-control" placeholder="Add your note" rows="10"></textarea>
+                    <textarea class="form-control" name="note_description" placeholder="Add your note" rows="10">{{user_note.description}}</textarea>
                   </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 form-control-label">Image</label>
-                    <img src="img_girl.jpg" alt="Note Pic">
+                    <img src="{{mediaUrl}}{{user_note.image}}" alt="Note Pic">
                 </div>
 
                 <div class="form-group button">

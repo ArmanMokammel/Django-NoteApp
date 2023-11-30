@@ -42,7 +42,7 @@
                     <tbody>
                         {% for note in all_notes %}
                         <tr>
-                            <td><a href="note_description.html"> {{note.pk}} </a></td>
+                            <td><a href="{% url 'UserData:note_description' usernameee note.pk %}"> {{note.pk}} </a></td>
                             <td> {{note.title}} </td>
                             <td> {{note.description}} </td>
                             <td>Example Label</td>

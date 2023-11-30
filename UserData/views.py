@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
@@ -48,6 +49,9 @@ def login(request):
 
 @login_required
 def notes_home(request, username):
+    if(request.user.username != username):
+        return redirect('UserData:notes_home', request.user.username)
+    
     get_all_notes = UserNotes.objects.filter(username=username)
     context={
         'usernameee' : username,
@@ -57,6 +61,9 @@ def notes_home(request, username):
 
 @login_required
 def add_note(request, username):
+    if(request.user.username != username):
+        return redirect('UserData:add_note', request.user.username)
+    
     if(request.method == "POST"):
         title = request.POST['title']
         description = request.POST['note_description']
@@ -72,9 +79,40 @@ def add_note(request, username):
     return render(request, 'add_note.html')
 
 @login_required
-def note_description(request, username):
-    return render(request, 'note_description.html')
+def note_description(request, username, id):
+    if(request.user.username != username or not UserNotes.objects.filter(username=request.user.username, pk=id).exists()):
+        return redirect('UserData:notes_home', request.user.username)
+
+    if(request.method == "POST"):
+        if('update_note' in request.POST):
+            title = request.POST['title']
+            description = request.POST['note_description']
+            
+            user_note = UserNotes.objects.get(pk=id)
+
+            user_note.title = title
+            user_note.description = description
+            if('image' in request.FILES):
+                image = request.FILES['image']
+                user_note.image = image
+
+            user_note.save()
+            return redirect('UserData:notes_home', username)
+        elif ('delete_note' in request.POST):
+            user_note = UserNotes.objects.get(pk=id)
+            user_note.image.delete()
+            user_note.delete()
+            return redirect('UserData:notes_home', username)
+
+    user_note = UserNotes.objects.get(pk=id)
+    context = {
+        'user_note' : user_note,
+        'mediaUrl' : settings.MEDIA_URL
+    }
+    return render(request, 'note_description.html', context=context)
 
 def logout(request):
     auth.logout(request)
     return redirect('UserData:login')
+
+

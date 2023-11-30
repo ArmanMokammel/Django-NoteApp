@@ -27,7 +27,7 @@
                 <input type="password" id="password" name="confirm_password">
                 
                 <button type="submit">Signup</button>
-                <p>Already have an Account? <span><a href="login.html">Login</a></span></p>
+                <p>Already have an Account? <span><a href="{% url 'UserData:login' %}">Login</a></span></p>
                 {% for message in messages %}
                 <p>{{message}}</p>
                 {% endfor %}

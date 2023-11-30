@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +18,13 @@
 
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password">
-                <input type="submit" value="login" name="login">Login</input>
+                <button type="submit">Login</button>
 
-                <p>Don't have an Account? <span><a href="signup.html">Signup</a></span></p>
+                <p>Don't have an Account? <span><a href="{% url 'UserData:signup' %}">Signup</a></span></p>
+
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
             </form>
         </div>
     </div>
