@@ -54,24 +54,33 @@
                             <textarea name="note_description" id="note-description" rows="10">{{ user_note.description }}</textarea>
                         </div>
                     </div>
-
                     <div class="form-group row">
-                      <label for="inputPassword3" class="col-sm-2 form-control-label">Images</label>
-                      {% if images %}
-                          <div id="image-container">
-                              {% for image in images %}
-                                  <div class="uploaded-image">
-                                      <img src="{{ mediaUrl }}{{ image.image }}" alt="Note Pic" style="width:100px; height:100px; object-fit: cover; margin-right:5px;">
-                                      <span class="remove-button" onclick="removeImage(this, '{{ mediaUrl }}{{ image.image }}')">Remove</span>
-                                  </div>
-                              {% endfor %}
-                          </div>
-                      {% else %}
-                          <div class="col-sm-10">
-                              <input name="images" type="file" class="form-control" multiple onchange="previewImages(this)">
-                          </div>
-                      {% endif %}
-                  </div>
+                        <label for="tags" class="col-sm-2 form-control-label">Tags</label>
+                        <div class="col-sm-10">
+                            <div id="tags-container" style="display: flex; flex-wrap: wrap;">
+                                <!-- Tags will be dynamically added here -->
+                            </div>
+                            <input type="text" class="form-control" id="tag-input" placeholder="Add a tag">
+                            <button type="button" class="btn btn-success btn-sm mt-2" onclick="addTag()">Add Tag</button>
+                            <div class="exists_tag">
+                                <span>tags</span>&nbsp;&nbsp;<span>tags</span>&nbsp;&nbsp;
+                            </div>
+                            <!-- Add this input field to serialize and pass the tagsArray -->
+                            <input type="hidden" name="tags_array" id="tags-array" value="">
+                        </div>
+                    </div>
+                      <!-- Image Section -->
+                      <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 form-control-label">Images</label>
+                        <div class="col-sm-10">
+                            <input name="images" type="file" class="form-control" multiple>
+                            <div id="image-preview">
+                                {% for image in images %}
+                                    <img src="{{ mediaUrl }}{{ image.image }}" alt="" width="200px">
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group button">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -84,61 +93,72 @@
             </div>
         </div>
     </div>
-    <script>
 
-
+<script>
     // Initialize CKEditor
     CKEDITOR.replace('note-description');
 
-        var selectedImages = []; // Keep track of selected images
+    // Tags handling
+    var tagsArray = [];
 
-        function previewImages(input) {
-            var imageContainer = document.getElementById('image-container');
-            imageContainer.innerHTML = ''; // Clear existing images
+    function addTag() {
+        var tagInput = $('#tag-input');
+        var tagValue = tagInput.val().trim();
 
-            var files = input.files;
+        if (tagValue !== '') {
+            // Check if the tag already exists
+            if (tagsArray.indexOf(tagValue) === -1) {
+                // Add tag to the array
+                tagsArray.push(tagValue);
 
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = 'uploaded-image';
-                    img.style.width = '100px'; // Set the fixed width
-                    img.style.height = '100px'; // Set the fixed height
-
-                    var removeButton = document.createElement('span');
-                    removeButton.className = 'remove-button';
-                    removeButton.innerHTML = 'Remove';
-                    removeButton.onclick = function () {
-                        removeImage(img, file.name);
-                    };
-
-                    var div = document.createElement('div');
-                    div.appendChild(img);
-                    div.appendChild(removeButton);
-                    imageContainer.appendChild(div);
-
-                    // Add the selected image to the list
-                    selectedImages.push({ element: div, file: file });
-                };
-
-                reader.readAsDataURL(file);
+                // Update the tags-container
+                updateTagsContainer();
+                // Clear the input field
+                tagInput.val('');
             }
         }
+    }
 
-        function removeImage(imageElement, imageName) {
-            // Remove the image from the displayed preview
-            imageElement.parentNode.remove();
+    function removeTag(tagValue) {
+        // Remove tag from the array
+        tagsArray = tagsArray.filter(function (tag) {
+            return tag !== tagValue;
+        });
 
-            // Remove the image from the selected images list
-            selectedImages = selectedImages.filter(function (item) {
-                return item.element !== imageElement.parentNode;
-            });
+        // Update the tags-container
+        updateTagsContainer();
+    }
+
+    function updateTagsContainer() {
+        var tagContainer = $('#tags-container');
+        tagContainer.empty();
+
+        for (var i = 0; i < tagsArray.length; i++) {
+            var tagElement = $('<div class="badge badge-primary m-1"></div>').text(tagsArray[i]);
+            var removeButton = $('<button type="button" class="btn btn-danger btn-sm ml-1">Remove</button>');
+
+            // Event handler for removing the tag
+            removeButton.click(createRemoveHandler(tagsArray[i]));
+
+            tagElement.append(removeButton);
+            tagContainer.append(tagElement);
         }
-    </script>
+        // Update the hidden input field with the serialized tagsArray
+        $('#tags-array').val(JSON.stringify(tagsArray));
+    }
+
+    function createRemoveHandler(tagValue) {
+        return function () {
+            removeTag(tagValue);
+        };
+    }
+</script>
+
+    
+    
+    
+    
+    
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
