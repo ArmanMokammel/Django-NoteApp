@@ -20,51 +20,6 @@
         <div class="box">
             <div class="box-divider m-0"></div>
             <div class="box-body">
-<<<<<<< Updated upstream
-              <form method="POST" enctype="multipart/form-data" id="noteForm">
-                {% csrf_token %}
-                <div class="form-group row">
-                  <label for="title" class="col-sm-2 form-control-label">Title</label>
-                  <div class="col-sm-10">
-                    <input name="title" type="text" class="form-control" id="title" placeholder="Note Title" required>
-                  </div>
-                </div>
-                
-                <!-- CKEditor for Note Description -->
-                <div class="form-group row">
-                  <label for="note-description" class="col-sm-2 form-control-label">Note Description</label>
-                  <div class="col-sm-10">
-                      <textarea name="note_description" id="note-description" rows="10"></textarea>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="tags" class="col-sm-2 form-control-label">Tags</label>
-                  <div class="col-sm-10">
-                      <div id="tags-container" style="display: flex; flex-wrap: wrap;">
-                          <!-- Tags will be dynamically added here -->
-                      </div>
-                      <input type="text" class="form-control" id="tag-input" placeholder="Add a tag">
-                      <button type="button" class="btn btn-success btn-sm mt-2" onclick="addTag()">Add Tag</button>
-                      <!-- Add this input field to serialize and pass the tagsArray -->
-                        <input type="hidden" name="tags_array" id="tags-array" value="">
-                  </div>
-              </div>
-                <!-- Image Section -->
-                <div class="form-group row">
-                  <label for="inputPassword3" class="col-sm-2 form-control-label">Add Image</label>
-                  <div class="col-sm-10">
-                      <input name="images" type="file" class="form-control" multiple>
-                  </div>
-              </div>
-
-                <div class="form-group button">
-                  <div class="col-sm-offset-2 col-sm-10">
-                    <input type="submit" class="btn btn-outline-success txt-success rounded buttons" name="create_note" value="Create">
-                    <a href="{% url 'UserData:notes_home' usernameee %}" class="btn btn-outline-danger txt-danger rounded buttons">Cancel</a>
-                  </div>
-                </div>
-              </form>
-=======
                 <form method="POST" enctype="multipart/form-data" id="noteForm">
                     {% csrf_token %}
                     <div class="form-group row">
@@ -109,7 +64,6 @@
                         </div>
                     </div>
                 </form>
->>>>>>> Stashed changes
             </div>
         </div>
     </div>
@@ -118,68 +72,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-<<<<<<< Updated upstream
-// Initialize CKEditor
-CKEDITOR.replace('note-description');
-        // Tags handling
-    var tagsArray = [];
-
-    function addTag() {
-        var tagInput = $('#tag-input');
-        var tagValue = tagInput.val().trim();
-
-        if (tagValue !== '') {
-            // Check if the tag already exists
-            if (tagsArray.indexOf(tagValue) === -1) {
-                // Add tag to the array
-                tagsArray.push(tagValue);
-
-                // Update the tags-container
-                updateTagsContainer();
-                // Clear the input field
-                tagInput.val('');
-            }
-        }
-    }
-
-    function removeTag(tagValue) {
-        // Remove tag from the array
-        tagsArray = tagsArray.filter(function (tag) {
-            return tag !== tagValue;
-        });
-
-        // Update the tags-container
-        updateTagsContainer();
-    }
-
-    function updateTagsContainer() {
-        var tagContainer = $('#tags-container');
-        tagContainer.empty();
-
-        for (var i = 0; i < tagsArray.length; i++) {
-            var tagElement = $('<div class="badge badge-primary m-1"></div>').text(tagsArray[i]);
-            var removeButton = $('<button type="button" class="btn btn-danger btn-sm ml-1">Remove</button>');
-
-            // Event handler for removing the tag
-            removeButton.click(createRemoveHandler(tagsArray[i]));
-
-            tagElement.append(removeButton);
-            tagContainer.append(tagElement);
-        }
-        // Update the hidden input field with the serialized tagsArray
-        $('#tags-array').val(JSON.stringify(tagsArray));
-    }
-
-    function createRemoveHandler(tagValue) {
-        return function () {
-            removeTag(tagValue);
-        };
-    }
-  </script>
-  
-  
-  
-=======
         // Initialize CKEditor
         CKEDITOR.replace('note-description');
 
@@ -231,7 +123,6 @@ CKEDITOR.replace('note-description');
             // Update the hidden input field with the serialized tagsArray
             $('#tags-array').val(JSON.stringify(tagsArray));
         }
->>>>>>> Stashed changes
 
         function createRemoveHandler(tagValue) {
             return function () {
