@@ -99,8 +99,17 @@ def add_note(request, username):
     if(request.method == "POST"):
         title = request.POST['title']
         description = request.POST['note_description']
+        tags = None
         image = None
-        new_note = UserNotes.objects.create(title=title, description=description, username=UserInfo.objects.get(username=username))
+        if('tags_array' in request.POST):
+            tagsString = request.POST['tags_array']
+            remove_char = ['[', ']', '"']
+            for char in remove_char:
+                tagsString = tagsString.replace(char,'') 
+            tags = tagsString
+                
+        new_note = UserNotes.objects.create(title=title, description=description, tags=tags, username=UserInfo.objects.get(username=username))
+        
         if('images' in request.FILES):
             for file in request.FILES.getlist('images'):
                 image = ImageFile.objects.create(image=file, user_note=new_note)
@@ -119,22 +128,8 @@ def add_note(request, username):
 def note_description(request, username, id):
     if(request.user.username != username or not UserNotes.objects.filter(username=request.user.username, pk=id).exists()):
         return redirect('UserData:notes_home', request.user.username)
-
+    
     # if(request.method == "POST"):
-    #     if('update_note' in request.POST):
-    #         title = request.POST['title']
-    #         description = request.POST['note_description']
-            
-    #         user_note = UserNotes.objects.get(pk=id)
-
-    #         user_note.title = title
-    #         user_note.description = description
-    #         if('image' in request.FILES):
-    #             image = request.FILES['image']
-    #             user_note.image = image
-
-    #         user_note.save()
-    #         return redirect('UserData:notes_home', username)
     #     elif ('delete_note' in request.POST):
     #         user_note = UserNotes.objects.get(pk=id)
     #         user_note.image.delete()
@@ -165,6 +160,16 @@ def update_note(request, username, id):
         user_note = UserNotes.objects.get(pk=id)
         user_note.title = title
         user_note.description = description
+
+        if('tags_array' in request.POST):
+                tagsString = request.POST['tags_array']
+                remove_char = ['[', ']', '"']
+                for char in remove_char:
+                    tagsString = tagsString.replace(char,'') 
+                user_note.tags = tagsString
+                print(tagsString)
+        else:
+            user_note.tags = None
 
         for file in request.FILES.getlist('images'):
             image = ImageFile.objects.create(image=file, user_note=user_note)

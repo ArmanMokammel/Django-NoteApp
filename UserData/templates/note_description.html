@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{% static 'add_note.css' %}">
         <!-- CKEditor CDN -->
         <script src="https://cdn.ckeditor.com/4.17.0/standard-all/ckeditor.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <style>
         #image-container {
             display: flex;
@@ -62,9 +64,6 @@
                             </div>
                             <input type="text" class="form-control" id="tag-input" placeholder="Add a tag">
                             <button type="button" class="btn btn-success btn-sm mt-2" onclick="addTag()">Add Tag</button>
-                            <div class="exists_tag">
-                                <span>tags</span>&nbsp;&nbsp;<span>tags</span>&nbsp;&nbsp;
-                            </div>
                             <!-- Add this input field to serialize and pass the tagsArray -->
                             <input type="hidden" name="tags_array" id="tags-array" value="">
                         </div>
@@ -94,12 +93,18 @@
         </div>
     </div>
 
-<script>
+<script data-tags="{{user_note.tags}}">
     // Initialize CKEditor
     CKEDITOR.replace('note-description');
+    const data = document.currentScript.dataset;
 
     // Tags handling
-    var tagsArray = [];
+    var tagsArray = []
+    console.log(data.tags)
+    if(data.tags != ""){
+        tagsArray = data.tags.split(",");
+        updateTagsContainer();
+    }
 
     function addTag() {
         var tagInput = $('#tag-input');
@@ -153,15 +158,6 @@
         };
     }
 </script>
-
-    
-    
-    
-    
-    
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
