@@ -5,21 +5,74 @@ body {
     height: 100vh;
     margin: 0;
 }
-.page_title{
+
+.page_title {
     justify-content: center;
     text-align: center;
     margin-top: 10vh;
 }
-.note_form{
+
+.note_form {
     justify-content: center;
     margin-top: 10vh;
     margin-left: 25%;
     margin-right: 25%;
-    margin-bottom: 25%;   
+    margin-bottom: 25%;
 }
-.button{
+
+.button {
     text-align: center;
     margin-left: 40%;
     margin-right: 25%;
-    margin-bottom: 25%;   
+    margin-bottom: 25%;
 }
+
+.input-field {
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:hover,
+.input-field:focus {
+    border-color: #28a745; 
+}
+
+.buttons {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.buttons:hover {
+    background-color: #28a745; 
+    color: #fff; 
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background-color: #007bff; 
+}
+
+.badge button {
+    margin-left: 5px;
+}
+
+.badge button:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.tag_btn{
+    background-color: #265073; 
+}
+.tag_btn:hover{
+    background-color: #2D9596;
+}
+.cancel_btn:hover{
+    background: #FF0000;  
+    color: #fff; 
+}
+

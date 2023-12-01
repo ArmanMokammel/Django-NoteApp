@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="{% static 'add_note.css' %}">
         <!-- CKEditor CDN -->
         <script src="https://cdn.ckeditor.com/4.17.0/standard-all/ckeditor.js"></script>
+<<<<<<< Updated upstream
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+=======
+>>>>>>> Stashed changes
     <style>
         #image-container {
             display: flex;
@@ -63,7 +66,14 @@
                                 <!-- Tags will be dynamically added here -->
                             </div>
                             <input type="text" class="form-control" id="tag-input" placeholder="Add a tag">
+<<<<<<< Updated upstream
                             <button type="button" class="btn btn-success btn-sm mt-2" onclick="addTag()">Add Tag</button>
+=======
+                            <button type="button" class="btn btn-success btn-sm mt-2 tag_btn" onclick="addTag()">Add Tag</button>
+                            <div class="exists_tag">
+                                <span>tags</span>&nbsp;
+                            </div>
+>>>>>>> Stashed changes
                             <!-- Add this input field to serialize and pass the tagsArray -->
                             <input type="hidden" name="tags_array" id="tags-array" value="">
                         </div>
@@ -85,7 +95,11 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <input type="submit" class="btn btn-outline-success txt-success rounded buttons"
                                 name="update_note" value="Update">
+<<<<<<< Updated upstream
                             <a href="{% url 'UserData:note_description' usernameee user_note.pk %}" class="btn btn-outline-danger txt-danger rounded buttons">Cancel</a>
+=======
+                            <a href="{% url 'UserData:note_description' usernameee user_note.pk %}" class="btn btn-outline-danger txt-danger rounded cancel_btn">Cancel</a>
+>>>>>>> Stashed changes
                         </div>
                     </div>
                 </form>
@@ -93,6 +107,7 @@
         </div>
     </div>
 
+<<<<<<< Updated upstream
 <script data-tags="{{user_note.tags}}">
     // Initialize CKEditor
     CKEDITOR.replace('note-description');
@@ -105,6 +120,14 @@
         tagsArray = data.tags.split(",");
         updateTagsContainer();
     }
+=======
+<script>
+    // Initialize CKEditor
+    CKEDITOR.replace('note-description');
+
+    // Tags handling
+    var tagsArray = [];
+>>>>>>> Stashed changes
 
     function addTag() {
         var tagInput = $('#tag-input');
@@ -137,6 +160,7 @@
     function updateTagsContainer() {
         var tagContainer = $('#tags-container');
         tagContainer.empty();
+<<<<<<< Updated upstream
 
         for (var i = 0; i < tagsArray.length; i++) {
             var tagElement = $('<div class="badge badge-primary m-1"></div>').text(tagsArray[i]);
@@ -144,6 +168,35 @@
 
             // Event handler for removing the tag
             removeButton.click(createRemoveHandler(tagsArray[i]));
+=======
+
+        for (var i = 0; i < tagsArray.length; i++) {
+            var tagElement = $('<div class="badge badge-primary m-1"></div>').text(tagsArray[i]);
+            var removeButton = $('<button type="button" class="btn btn-danger btn-sm ml-1">Remove</button>');
+
+            // Event handler for removing the tag
+            removeButton.click(createRemoveHandler(tagsArray[i]));
+
+            tagElement.append(removeButton);
+            tagContainer.append(tagElement);
+        }
+        // Update the hidden input field with the serialized tagsArray
+        $('#tags-array').val(JSON.stringify(tagsArray));
+    }
+
+    function createRemoveHandler(tagValue) {
+        return function () {
+            removeTag(tagValue);
+        };
+    }
+</script>
+
+    
+    
+    
+    
+    
+>>>>>>> Stashed changes
 
             tagElement.append(removeButton);
             tagContainer.append(tagElement);
