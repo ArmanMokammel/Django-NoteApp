@@ -16,7 +16,6 @@
                 <button type="button" class="toggle-btn" onclick="signin()">Sign Up</button>
             </div>
 
-<<<<<<< Updated upstream
             <form method="POST" id="login" class="input-group">
                 {% csrf_token %}
                 <input type="text" class="input-field" name="login_username" placeholder="Username" required>
@@ -37,20 +36,6 @@
                 {% for message in messages %}
                     <p>{{message}}</p>
                 {% endfor %}
-=======
-            <form id="login" class="input-group">
-                <input type="text" class="input-field" name="login_username" placeholder="Enter Username" required>
-                <input type="password" class="input-field" name="login_pass" placeholder="Enter Password" required>
-                <button type="submit" class="submit-btn">Log In</button>
-            </form>
-
-            <form id="signup" class="input-group">
-                <input type="email" class="input-field" name="user_email" placeholder="Email Id" required>
-                <input type="text" class="input-field" name="signup_username" placeholder="Set Username" required>
-                <input type="password" class="input-field" name="user_set_pass" placeholder="Set Password" required>
-                <input type="password" class="input-field" name="user_conf_pass" placeholder="Confirm Password" required>
-                <button type="submit" class="submit-btn">Sign Up</button>
->>>>>>> Stashed changes
             </form>
         </div>
     </div>
