@@ -34,7 +34,7 @@
                             <th style="text-align:center;">ID</th>                            
                             <th style="text-align:center;">Title</th>
                             {% comment %} <th style="text-align:center;">Notes</th> {% endcomment %}
-                            <th style="text-align:center;">Labels</th>
+                            <th style="text-align:center;">Tags</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +44,7 @@
                             <td> {{forloop.counter}} </td>
                             <td> <a href="{% url 'UserData:note_description' usernameee note.pk %}"> {{note.title}} </a></td>
                             {% comment %} <td> {{note.description}} </td> {% endcomment %}
-                            <td> <span style="background-color:blue; padding:5px; font-size: 20px; border-radius:5px; color:white;">tag</span> <span  style="background-color:blue; padding:5px; font-size: 20px; border-radius:5px; color:white;">tag2</span> </td>
+                            <td> <span style="background-color:blue; padding:5px; font-size: 20px; border-radius:5px; color:white;">tag</span></td>
                         </tr>
                         {% endfor %}
                         <!-- Add more rows as needed -->
