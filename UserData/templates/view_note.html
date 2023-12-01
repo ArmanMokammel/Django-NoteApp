@@ -253,10 +253,12 @@
                 <textarea name="note_description" id="note-description" rows="10">{{ user_note.description }}</textarea>
             </div>
         </div>
+        <div class="description tags">
+            <span>tags</span>&nbsp;&nbsp;<span>tags</span>&nbsp;&nbsp;
+        </div>
         <div class="images">
             {% for image in user_images %}
             <img src="{{ mediaUrl }}{{ image.image }}" alt="">
-            
             {% endfor %}
         </div>
     </div>
