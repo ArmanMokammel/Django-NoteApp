@@ -167,13 +167,13 @@ def update_note(request, username, id):
                 for char in remove_char:
                     tagsString = tagsString.replace(char,'') 
                 user_note.tags = tagsString
-                print(tagsString)
         else:
             user_note.tags = None
 
-        for file in request.FILES.getlist('images'):
-            image = ImageFile.objects.create(image=file, user_note=user_note)
-            image.save()
+        if('images' in request.FILES):
+            for image in request.FILES.getlist('images'):
+                image = ImageFile.objects.create(image=image, user_note=user_note)
+                image.save()
 
         user_note.save()
         return redirect('UserData:notes_home', username)
@@ -200,5 +200,4 @@ def delete_note(request, username, id):
 def logout(request):
     auth.logout(request)
     return redirect('UserData:landing_page')
-
 
