@@ -9,252 +9,183 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            height: 100vh;
-            width: 80vw;
+            width: 70vw;
             padding: 0;
-            margin: 0 10%;
-        }
-        .box{
-            margin-top: 5%;
-            border: 3px solid rgb(155, 155, 155);
-            border-radius: 6px;
-        }
-        .note_title{
-            font-size: larger;
-            margin: 5% 5%;
-        }
-        .description{
-            font-size: 15px;
-            padding: 0% 5%;
-        }
-        .images{
-            margin-top: 5%;
-            display: flex;
-            flex-wrap: wrap;
-            padding: 0px 5%;
-            padding-bottom: 50px;
-        }
-        .images img{
-            width: 300px;
-            height: 200px;
-            border: 2px solid rgb(252, 250, 250);
-            border-radius: 6px;
-            box-shadow: 4px 7px 7px 0px rgb(155, 154, 154);
-            margin: 10px;
+            margin: 0 15%;
         }
         .buttons{
-            margin:5% 0%;
+            margin-top:5%;
+            display: flex;
+            flex-direction: row;
         }
         .back_button , .update_button , .delete_button{
+            text-decoration: none;
             border-radius: 6px;
             background: none;
-            padding: 10px 40px;
+            padding: 5px 20px;
             font-size: 20px;
-            margin: 10px;
             color: rgb(99, 99, 99);
             cursor: pointer;
             border: 0px solid white;
-        }
+        } 
         .back_button{
-            margin-left: -5px;
+            margin-right: auto;
+        }      
+        .box{
+            margin-top: 2%;
+            margin-bottom: 5%;
+            border: 2px solid rgb(155, 155, 155);
+            border-radius: 6px;
+            background-color: white;
         }
-        .delete_button{
-            margin-left: 62%;
+        .note_title{
+            font-size: larger;
+            margin: 3% 0% 3% 2%;
+        }
+        .description{
+            font-size: 20px;
+            padding: 0% 2%;
+        }
+        .description_tags{
+            margin-top: 20px;
+            margin-left: 2%;
+        }
+        .tags{
+            text-decoration: none;
+            border-radius: 8px;
+            background: none;
+            background: rgb(219, 219, 219);
+            padding: 5px 10px;
+            font-size: 15px;
+            margin: 2px;
+            color: rgb(99, 99, 99);
+            cursor: pointer;
+            border: 0px solid white;
+            font-weight: bold;
+        }
+        .images{
+            margin-top: 5%;    
+            display: grid;
+            grid-template-columns:1fr 1fr 1fr;
+            padding-bottom: 2%; 
+            justify-content: center;   
+            grid-gap: 10px;
+            margin-left: 2%;
+            margin-right: 2%;  
+        }
+        .images img{
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin: 0px;
         }
         .back_button:hover , .update_button:hover , .delete_button:hover{
             color: rgb(70, 70, 70);
             background-color: rgb(219, 219, 219);
+            transition: .5s
         }
-        @media only screen and (max-width: 576px)  {    
-            .box{
-                border: 2px solid rgb(155, 155, 155);   
-            }
+        .tags:hover{
+            color: rgb(219, 219, 219);
+            background-color: #637792;
+            transition: .5s;
+        }
+        @media only screen and (max-width: 576px)  {
             .note_title{
                 font-size: 10px;
             }
             .description{
                 font-size: 15px;
             }
-            .images img{
-                width: 80px;
-                height: 75px;
-                border: 2px solid rgb(252, 250, 250);
-                border-radius: 6px;
-                box-shadow: 4px 7px 7px 0px rgb(155, 154, 154);
-                margin: 2px;      
-            }
             .images{
-                margin-bottom: 5%;
-                padding: 2% 2%;
-                justify-content:center;
+                grid-template-columns:1fr 1fr;
+            }
+            .images img{
+                height: 100px;
             }
             .back_button , .update_button , .delete_button{
-                border-radius: 6px;
-                background: none;
-                padding: 5px 20px;
+                padding: 5px 10px;
                 font-size: 15px;
-                color: rgb(99, 99, 99);
-                border: 0px solid white;
-                margin: 0px;
-            }
-            .buttons{
-                display: flex;
-                justify-content: space-around;
             }
         }
-        @media (min-width: 576px) and (max-width: 769px)  {    
+        @media (min-width: 576px) and (max-width: 769px)  {
+            .back_button , .update_button , .delete_button{
+                padding: 5px 10px;
+                font-size: 15px;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1025px)  {
+            .back_button , .update_button , .delete_button{
+                padding: 5px 20px;
+                font-size: 20px
+            }
+            .tags{
+                margin-left: 1%;
+            }
+        }
+        @media (min-width: 1025px) and (max-width: 1500px)  {
+            .images img{
+                height: 200px;
+            }
+            .back_button , .update_button , .delete_button{
+                padding: 5px 20px;
+                font-size: 20px;
+            }
+            .tags{
+                margin-left: 1%;
+            }
+        }
+        @media (min-width: 1500px) and (max-width: 3000px)  {    
             .box{
-                border: 2px solid rgb(155, 155, 155);   
+                border: 3px solid rgb(155, 155, 155);   
+            }
+            .description{
+                font-size: 40px;
+                margin-bottom: 2%;
+            }
+            .images img{
+                height: 300px;
+            }
+            .back_button , .update_button , .delete_button{
+                padding: 5px 20px;
+                font-size: 25px;   
+            }
+            .images{
+                margin-left: 1%;
+                margin-right: 1%;
+            }
+            .back_button , .update_button , .delete_button{
+                font-size: 40px;
             }
             .note_title{
-                font-size: 10px;
+                font-size: 30px;
             }
-            .description{
-                font-size: 20px;
-            }
-            .images img{
-                width: 150px;
-                height: 115px;
-                border: 2px solid rgb(252, 250, 250);
-                border-radius: 6px;
-                box-shadow: 4px 7px 7px 0px rgb(155, 154, 154);
-                margin: 7px;
-                
-            }
-            .images{
-                margin-bottom: 0%;
-                padding: 2% 2%;
-                justify-content:center ;
-            }
-            .back_button , .update_button , .delete_button{
-                border-radius: 6px;
-                background: none;
-                padding: 5px 20px;
-                font-size: 15px;
-                color: rgb(99, 99, 99);
-                border: 0px solid white;
-                margin: 0px;
-            }
-            .delete_button{
-                margin-left: 55%;
+            .tags{
+                font-size: 30px;
             }
         }
-        @media (min-width: 769px) and (max-width: 1025px)  {    
-            .box{
-                border: 2px solid rgb(155, 155, 155);   
-            }
-            .description{
-                font-size: 15px;
-            }
-            .images img{
-                width: 200px;
-                height: 150px;
-                border: 2px solid rgb(252, 250, 250);
-                border-radius: 6px;
-                box-shadow: 4px 7px 7px 0px rgb(155, 154, 154);
-                margin: 10px;
-                
-            }
-            .images{
-                margin-bottom: 0%;
-                padding: 2% 2%;
-                justify-content:center ;
-            }
-            .back_button , .update_button , .delete_button{
-                border-radius: 6px;
-                background: none;
-                padding: 5px 20px;
-                font-size: 15px;
-                color: rgb(99, 99, 99);
-                border: 0px solid white;
-                margin: 0px;
-            }
-            .delete_button{
-                margin-left: 65%;
-            }
-        }
-        @media (min-width: 1025px) and (max-width: 2560px)  {    
-            .box{
-                border: 2px solid rgb(155, 155, 155);   
-            }
-            .description{
-                font-size: 20px;
-            }
-            .images img{
-                width: 300px;
-                height: 230px;
-                border: 2px solid rgb(252, 250, 250);
-                border-radius: 6px;
-                box-shadow: 4px 7px 7px 0px rgb(155, 154, 154);
-                margin: 10px;  
-            }
-            .images{
-                margin-bottom: 0%;
-                padding: 2% 2%;
-                justify-content:center ;
-            }
-            .back_button , .update_button , .delete_button{
-                border-radius: 6px;
-                background: none;
-                padding: 5px 20px;
-                font-size: 20px;
-                color: rgb(99, 99, 99);
-                border: 0px solid white;
-                margin: 0px;
-            }
-            .delete_button{
-                margin-left: 70%;
-            }
-        }
-        @media (min-width: 1025px) and (max-width: 2559px)  {    
-            .box{
-                border: 2px solid rgb(155, 155, 155);   
-            }
-            .description{
-                font-size: 20px;
-            }
-            .images img{
-                width: 300px;
-                height: 230px;
-                border: 2px solid rgb(252, 250, 250);
-                border-radius: 6px;
-                box-shadow: 4px 7px 7px 0px rgb(155, 154, 154);
-                margin: 10px;  
-            }
-            .images{
-                margin-bottom: 0%;
-                padding: 2% 2%;
-                justify-content:center ;
-            }
-            .back_button , .update_button , .delete_button{
-                border-radius: 6px;
-                background: none;
-                padding: 5px 20px;
-                font-size: 20px;
-                color: rgb(99, 99, 99);
-                border: 0px solid white;
-                margin: 0px;
-            }
-            .delete_button{
-                margin-left: 70%;
-            }
-        }
-    </style>
+        </style>
     <title>View Note</title>
 </head>
 <body>
-    <div class="box">
-    <div class="note_title">
-        <h1>{{user_note.title}}</h1>
+    <div class="buttons">
+        <a href="{% url 'UserData:notes_home' usernameee %}" class="back_button" name="back">Back</a>
+        <a href="{% url 'UserData:delete_note' usernameee user_note.pk %}" class="delete_button" name="delete_note">Delete</a>
+        <a href="{% url 'UserData:update_note' usernameee user_note.pk %}" class="update_button" name="update_note">Update</a>
     </div>
+    <div class="box">
+        <div class="note_title">
+            <h1>{{user_note.title}}</h1>
+        </div>
         <div class="description">
             <label for="note-description" class="col-sm-2 form-control-label">Description</label>
             <div class="col-sm-10">
                 <textarea name="note_description" id="note-description" rows="10">{{ user_note.description }}</textarea>
             </div>
         </div>
-        <div class="description tags">
-            <span>tags</span>&nbsp;&nbsp;<span>tags</span>&nbsp;&nbsp;
+        <div class="description_tags">
+            <a href="" class="tags">#birthday</a>
+            <a href="" class="tags">#party</a>
         </div>
         <div class="images">
             {% for image in user_images %}
@@ -262,11 +193,6 @@
             {% endfor %}
         </div>
     </div>
-        <div class="buttons">
-            <a href="{% url 'UserData:notes_home' usernameee %}" class="back_button" name="back">Back</a>
-            <a href="{% url 'UserData:delete_note' usernameee user_note.pk %}" class="delete_button" name="delete_note">Delete</a>
-            <a href="{% url 'UserData:update_note' usernameee user_note.pk %}" class="update_button" name="update_note">Update</a>
-        </div>
     <script>
     // Initialize CKEditor with read-only configuration for note description
     CKEDITOR.replace('note_description', {
