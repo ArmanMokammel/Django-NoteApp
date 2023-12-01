@@ -24,14 +24,14 @@
                 
                 <br><br>
                 <label style="margin-left:5px;">Search</label>
-                <input class="form-control w-75" type="text" id="searchInput" placeholder="Title, label, ...." onkeyup="searchTable()">
+                <input class="form-control w-75" type="text" id="searchInput" placeholder="Search by title or tags" onkeyup="searchTable()">
                 <br><br>
             </div>
             <div class="table-responsive" style="max-height:300px; overflow-y:auto;">
                 <table class="table table-bordered m-0 table7" style="text-align:center;" id="notesTable">
                     <thead>
                         <tr>
-                            <th style="text-align:center;">ID</th>                            
+                            <th style="text-align:center;">#</th>                            
                             <th style="text-align:center;">Title</th>
                             {% comment %} <th style="text-align:center;">Notes</th> {% endcomment %}
                             <th style="text-align:center;">Tags</th>
@@ -44,7 +44,7 @@
                             <td> {{forloop.counter}} </td>
                             <td> <a href="{% url 'UserData:note_description' usernameee note.pk %}"> {{note.title}} </a></td>
                             {% comment %} <td> {{note.description}} </td> {% endcomment %}
-                            <td> <span style="background-color:blue; padding:5px; font-size: 20px; border-radius:5px; color:white;">tag</span></td>
+                            <td> <span style="background-color:blue; padding:5px; font-size: 20px; border-radius:5px; color:white;">tag</span> </td>
                         </tr>
                         {% endfor %}
                         <!-- Add more rows as needed -->
