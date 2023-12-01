@@ -171,6 +171,12 @@ def update_note(request, username, id):
             user_note.tags = None
 
         if('images' in request.FILES):
+            user_images = ImageFile.objects.filter(user_note=user_note)
+
+            for image in user_images:
+                image.image.delete()
+                image.delete()
+
             for image in request.FILES.getlist('images'):
                 image = ImageFile.objects.create(image=image, user_note=user_note)
                 image.save()
