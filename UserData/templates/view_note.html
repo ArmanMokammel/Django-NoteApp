@@ -178,7 +178,7 @@
             <h1>{{user_note.title}}</h1>
         </div>
         <div class="description">
-            <label for="note-description" class="col-sm-2 form-control-label">Description</label>
+            {% comment %} <label for="note-description" class="col-sm-2 form-control-label">Description</label> {% endcomment %}
             <div class="col-sm-10">
                 <textarea name="note_description" id="note-description" rows="10">{{ user_note.description }}</textarea>
             </div>
