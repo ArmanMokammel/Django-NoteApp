@@ -14,11 +14,12 @@ class UserInfo(models.Model):
 
 class UserNotes(models.Model):
     title=models.CharField(null=True, blank=True, max_length=50)
-    description=models.TextField()
+    description=models.TextField(null=True, blank=True)
+    tags=models.CharField(null=True, blank=True, max_length=150)
     username=models.ForeignKey(UserInfo, null=False, blank=False, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name="User Notes"
+        verbose_name="User Note"
 
     def __str__(self) -> str:
         return str(self.pk)
@@ -28,7 +29,7 @@ class ImageFile(models.Model):
     user_note=models.ForeignKey(UserNotes, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name="User Note Images"
+        verbose_name="User Note Image"
 
     def __str__(self) -> str:
         return str(self.pk)
