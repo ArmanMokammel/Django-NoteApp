@@ -129,7 +129,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # login_required
-LOGIN_URL = 'UserData:login'
+LOGIN_URL = 'UserData:landing_page'
 
 # media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Content/')
