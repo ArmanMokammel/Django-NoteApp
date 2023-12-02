@@ -63,7 +63,8 @@
                                 <!-- Tags will be dynamically added here -->
                             </div>
                             <input type="text" class="form-control" id="tag-input" placeholder="Add a tag">
-                            <button type="button" class="btn btn-success btn-sm mt-2" onclick="addTag()">Add Tag</button>
+                            <button type="button" class="btn btn-success btn-sm mt-2 tag_btn" onclick="addTag()">Add Tag</button>
+                            
                             <!-- Add this input field to serialize and pass the tagsArray -->
                             <input type="hidden" name="tags_array" id="tags-array" value="">
                         </div>
@@ -85,7 +86,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <input type="submit" class="btn btn-outline-success txt-success rounded buttons"
                                 name="update_note" value="Update">
-                            <a href="{% url 'UserData:note_description' usernameee user_note.pk %}" class="btn btn-outline-danger txt-danger rounded buttons">Cancel</a>
+                            <a href="{% url 'UserData:note_description' usernameee user_note.pk %}" class="btn btn-outline-danger txt-danger rounded cancel_btn">Cancel</a>
                         </div>
                     </div>
                 </form>
@@ -158,6 +159,6 @@
         };
     }
 </script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
