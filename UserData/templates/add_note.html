@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +76,7 @@
                         margin: 0;">
                             <input type="submit" class="btn btn-success rounded buttons"
                                 name="create_note" value="Create">
-                            <a href="{% url 'UserData:notes_home' usernameee %}"
+                            <a href="{% url 'UserData:notes_home' username %}"
                                 class="btn btn-danger rounded cancel_btn">Cancel</a>
                         </div>
                     </form>
@@ -88,65 +87,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        // Initialize CKEditor
-        CKEDITOR.replace('note-description');
-
-        // Tags handling
-        var tagsArray = [];
-
-        function addTag() {
-            var tagInput = $('#tag-input');
-            var tagValue = tagInput.val().trim();
-
-            if (tagValue !== '') {
-                // Check if the tag already exists
-                if (tagsArray.indexOf(tagValue) === -1) {
-                    // Add tag to the array
-                    tagsArray.push(tagValue);
-
-                    // Update the tags-container
-                    updateTagsContainer();
-                    // Clear the input field
-                    tagInput.val('');
-                }
-            }
-        }
-
-        function removeTag(tagValue) {
-            // Remove tag from the array
-            tagsArray = tagsArray.filter(function (tag) {
-                return tag !== tagValue;
-            });
-
-            // Update the tags-container
-            updateTagsContainer();
-        }
-
-        function updateTagsContainer() {
-            var tagContainer = $('#tags-container');
-            tagContainer.empty();
-
-            for (var i = 0; i < tagsArray.length; i++) {
-                var tagElement = $('<div class="badge badge-primary m-1 tags"></div>').text(tagsArray[i]);
-                var removeButton = $('<button type="button" class="btn btn-danger btn-sm ml-1 rounded tag_rem">Remove</button>');
-
-                // Event handler for removing the tag
-                removeButton.click(createRemoveHandler(tagsArray[i]));
-
-                tagElement.append(removeButton);
-                tagContainer.append(tagElement);
-            }
-            // Update the hidden input field with the serialized tagsArray
-            $('#tags-array').val(JSON.stringify(tagsArray));
-        }
-
-        function createRemoveHandler(tagValue) {
-            return function () {
-                removeTag(tagValue);
-            };
-        }
-    </script>
+    <script src="{% static 'add_note.js' %}"></script>
 </body>
 
 </html>
