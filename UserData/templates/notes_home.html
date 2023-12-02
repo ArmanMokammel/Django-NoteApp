@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes of {{usernameee}}</title>
+    <title>Notes of {{username}}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'notes_home.css' %}">
     <style>
@@ -31,10 +31,10 @@
     align-items: center;
     margin: 10px 0;
     gap: 10px;">
-        <h1 class="w" style="text-align:center;">Welcome {{usernameee}} </h1>
+        <h1 class="w" style="text-align:center;">Welcome {{username}} </h1>
 
         <div class="create_note">
-            <a href="{% url 'UserData:add_note' usernameee %}" class="btn btn-outline-success txt-success rounded buttons">Take a New Note</a>
+            <a href="{% url 'UserData:add_note' username %}" class="btn btn-outline-success txt-success rounded buttons">Take a New Note</a>
             <a href="{% url 'UserData:logout' %}" class="btn btn-outline-danger txt-danger rounded log_buttons">Logout</a>
         </div>
     </div>
@@ -45,7 +45,6 @@
             flex-direction: column;
             align-items: flex-end;">
                 <br><br>
-                {% comment %} <label style="margin-left:5px;">Search</label> {% endcomment %}
                 <input class="form-control w-75 input-field" type="text" id="searchInput" placeholder="Search by title or tags" onkeyup="searchTable()" style="max-width: 400px;">
                 <br><br>
             </div>
@@ -62,7 +61,7 @@
                         {% for note in all_notes %}
                         <tr>
                             <td> {{forloop.counter}} </td>
-                            <td> <a href="{% url 'UserData:note_description' usernameee note.pk %}" class="note-link"> {{note.title}} </a></td>
+                            <td> <a href="{% url 'UserData:note_description' username note.pk %}" class="note-link"> {{note.title}} </a></td>
                             <td>
                               
                             {% note_tags_array note.tags as note_tags %}
@@ -84,32 +83,7 @@
         <!--Table Ends-->
     </div>
 
-    <script>
-        function searchTable() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("notesTable");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those that don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td");
-                for (var j = 0; j < td.length; j++) {
-                    if (td[j]) {
-                        txtValue = td[j].textContent || td[j].innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
-                            break;
-                        } else {
-                            tr[i].style.display = "none";
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <script src="index.js"></script>
+    <script src="{% static 'notes_home.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

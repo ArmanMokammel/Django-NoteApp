@@ -6,180 +6,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.ckeditor.com/4.17.0/standard-all/ckeditor.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            width: 70vw;
-            padding: 0;
-            margin: 0 15%;
-        }
-        .buttons{
-            margin-top:5%;
-            display: flex;
-            flex-direction: row;
-        }
-        .back_button , .update_button , .delete_button{
-            text-decoration: none;
-            border-radius: 6px;
-            background: none;
-            padding: 5px 20px;
-            font-size: 20px;
-            color: rgb(99, 99, 99);
-            cursor: pointer;
-            border: 0px solid white;
-        } 
-        .back_button{
-            margin-right: auto;
-        }      
-        .box{
-            margin-top: 2%;
-            margin-bottom: 5%;
-            border: 2px solid rgb(155, 155, 155);
-            border-radius: 6px;
-            background-color: white;
-        }
-        .note_title{
-            font-size: larger;
-            margin: 3% 0% 3% 2%;
-        }
-        .description{
-            font-size: 20px;
-            padding: 0% 2%;
-        }
-        .description_tags{
-            margin-top: 20px;
-            margin-left: 2%;
-        }
-        .tags{
-            text-decoration: none;
-            border-radius: 8px;
-            background: none;
-            background: rgb(219, 219, 219);
-            padding: 5px 10px;
-            font-size: 15px;
-            margin: 2px;
-            color: rgb(99, 99, 99);
-            cursor: pointer;
-            border: 0px solid white;
-            font-weight: bold;
-        }
-        .images{
-            margin-top: 5%;    
-            display: grid;
-            grid-template-columns:1fr 1fr 1fr;
-            padding-bottom: 2%; 
-            justify-content: center;   
-            grid-gap: 10px;
-            margin-left: 2%;
-            margin-right: 2%;  
-        }
-        .images img{
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin: 0px;
-        }
-        .back_button:hover , .update_button:hover , .delete_button:hover{
-            color: rgb(70, 70, 70);
-            background-color: rgb(219, 219, 219);
-            transition: .5s
-        }
-        .tags:hover{
-            color: rgb(219, 219, 219);
-            background-color: #637792;
-            transition: .5s;
-        }
-        @media only screen and (max-width: 576px)  {
-            .note_title{
-                font-size: 10px;
-            }
-            .description{
-                font-size: 15px;
-            }
-            .images{
-                grid-template-columns:1fr 1fr;
-            }
-            .images img{
-                height: 100px;
-            }
-            .back_button , .update_button , .delete_button{
-                padding: 5px 10px;
-                font-size: 15px;
-            }
-        }
-        @media (min-width: 576px) and (max-width: 769px)  {
-            .back_button , .update_button , .delete_button{
-                padding: 5px 10px;
-                font-size: 15px;
-            }
-        }
-        @media (min-width: 769px) and (max-width: 1025px)  {
-            .back_button , .update_button , .delete_button{
-                padding: 5px 20px;
-                font-size: 20px
-            }
-            .tags{
-                margin-left: 1%;
-            }
-        }
-        @media (min-width: 1025px) and (max-width: 1500px)  {
-            .images img{
-                height: 200px;
-            }
-            .back_button , .update_button , .delete_button{
-                padding: 5px 20px;
-                font-size: 20px;
-            }
-            .tags{
-                margin-left: 1%;
-            }
-        }
-        @media (min-width: 1500px) and (max-width: 3000px)  {    
-            .box{
-                border: 3px solid rgb(155, 155, 155);   
-            }
-            .description{
-                font-size: 40px;
-                margin-bottom: 2%;
-            }
-            .images img{
-                height: 300px;
-            }
-            .back_button , .update_button , .delete_button{
-                padding: 5px 20px;
-                font-size: 25px;   
-            }
-            .images{
-                margin-left: 1%;
-                margin-right: 1%;
-            }
-            .back_button , .update_button , .delete_button{
-                font-size: 40px;
-            }
-            .note_title{
-                font-size: 30px;
-            }
-            .tags{
-                font-size: 30px;
-            }
-        }
-        </style>
+    <link rel="stylesheet" href="{% static 'view_note.css' %}">
     <title>{{user_note.title}} | Note</title>
 </head>
 <body>
     <div class="buttons">
-        <a href="{% url 'UserData:notes_home' usernameee %}" class="back_button" name="back">Back</a>
-        <a href="{% url 'UserData:delete_note' usernameee user_note.pk %}" class="delete_button" name="delete_note">Delete</a>
-        <a href="{% url 'UserData:update_note' usernameee user_note.pk %}" class="update_button" name="update_note">Update</a>
+        <a href="{% url 'UserData:notes_home' username %}" class="back_button" name="back">Back</a>
+        <a href="{% url 'UserData:delete_note' username user_note.pk %}" class="delete_button" name="delete_note">Delete</a>
+        <a href="{% url 'UserData:update_note' username user_note.pk %}" class="update_button" name="update_note">Update</a>
     </div>
     <div class="box">
         <div class="note_title">
             <h1>{{user_note.title}}</h1>
         </div>
         <div class="description">
-            {% comment %} <label for="note-description" class="col-sm-2 form-control-label">Description</label> {% endcomment %}
             <div class="col-sm-10">
                 <textarea name="note_description" id="note-description" rows="10">{{ user_note.description }}</textarea>
             </div>
