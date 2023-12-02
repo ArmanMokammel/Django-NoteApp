@@ -16,6 +16,9 @@
             flex-direction: column;
             align-items: center;
         }
+        .note_form{
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
@@ -64,17 +67,18 @@
                         <div class="form-group row">
                             <label for="inputPassword3" class="col-sm-2 form-control-label">Add Image</label>
                             <div class="col-sm-10">
-                                <input name="images" type="file" class="form-control input-field" multiple>
+                                <input name="images" type="file" class="form-control input-field" style="height: 45px;" multiple>
                             </div>
                         </div>
 
-                        <div class="form-group button">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <input type="submit" class="btn btn-outline-success txt-success rounded buttons"
-                                    name="create_note" value="Create">
-                                <a href="{% url 'UserData:notes_home' usernameee %}"
-                                    class="btn btn-outline-danger txt-danger rounded cancel_btn">Cancel</a>
-                            </div>
+                        <div class="form-group button" style="display: flex;
+                        justify-content: center;
+                        gap: 10px;
+                        margin: 0;">
+                            <input type="submit" class="btn btn-success rounded buttons"
+                                name="create_note" value="Create">
+                            <a href="{% url 'UserData:notes_home' usernameee %}"
+                                class="btn btn-danger rounded cancel_btn">Cancel</a>
                         </div>
                     </form>
                 </div>
