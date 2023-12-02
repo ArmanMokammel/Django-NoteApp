@@ -138,6 +138,7 @@ def note_description(request, username, id):
 
     user_note = UserNotes.objects.get(pk=id)
     user_images = ImageFile.objects.filter(user_note=user_note)
+    
     context = {
         'usernameee' : username,
         'user_images':user_images,

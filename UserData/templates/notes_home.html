@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load tag %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,8 +64,15 @@
                             <td> {{forloop.counter}} </td>
                             <td> <a href="{% url 'UserData:note_description' usernameee note.pk %}" class="note-link"> {{note.title}} </a></td>
                             <td>
-                                <span class="tag">#tag1</span>&nbsp;&nbsp;
-                                <span class="tag">#tag2</span>&nbsp;&nbsp;
+                              
+                            {% note_tags_array note.tags as note_tags %}
+                            
+                            {% for tag in note_tags %}
+                               {% if tag != "" %}
+                                <span class="tag">#{{tag}}</span>&nbsp;&nbsp;
+                                {% endif %}
+                            {% endfor %}
+                               
                             </td>
                         </tr>
                         {% endfor %}
