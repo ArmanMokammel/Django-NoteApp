@@ -1,16 +1,17 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note Title</title>
+    <title>Update Note</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'add_note.css' %}">
-        <!-- CKEditor CDN -->
-        <script src="https://cdn.ckeditor.com/4.17.0/standard-all/ckeditor.js"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <!-- CKEditor CDN -->
+    <script src="https://cdn.ckeditor.com/4.17.0/standard-all/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <style>
         #image-container {
             display: flex;
@@ -30,135 +31,153 @@
             top: 5px;
             right: 5px;
         }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .note_form {
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="page_title">
-        <h1 class="w">{{ user_note.title }}</h1>
-    </div>
-    <div class="col-md-6 note_form">
-        <div class="box">
-            <div class="box-divider m-0"></div>
-            <div class="box-body">
-                <form method="POST" id="noteForm" enctype="multipart/form-data" onsubmit="submitForm(); return false;">
-                    {% csrf_token %}
-                    <div class="form-group row">
-                        <label for="title" class="col-sm-2 form-control-label">Title</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="title" class="form-control" id="title" placeholder="Note Title"
-                                value="{{ user_note.title }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="note-description" class="col-sm-2 form-control-label">Note Description</label>
-                        <div class="col-sm-10">
-                            <textarea name="note_description" id="note-description" rows="10">{{ user_note.description }}</textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="tags" class="col-sm-2 form-control-label">Tags</label>
-                        <div class="col-sm-10">
-                            <div id="tags-container" style="display: flex; flex-wrap: wrap;">
-                                <!-- Tags will be dynamically added here -->
-                            </div>
-                            <input type="text" class="form-control" id="tag-input" placeholder="Add a tag">
-                            <button type="button" class="btn btn-success btn-sm mt-2 tag_btn" onclick="addTag()">Add Tag</button>
-                            
-                            <!-- Add this input field to serialize and pass the tagsArray -->
-                            <input type="hidden" name="tags_array" id="tags-array" value="">
-                        </div>
-                    </div>
-                      <!-- Image Section -->
-                      <div class="form-group row">
-                        <label for="inputPassword3" class="col-sm-2 form-control-label">Images</label>
-                        <div class="col-sm-10">
-                            <input name="images" type="file" class="form-control" multiple>
-                            <div id="image-preview">
-                                {% for image in images %}
-                                    <img src="{{ mediaUrl }}{{ image.image }}" alt="" width="200px">
-                                {% endfor %}
+    <div class="main">
+        <div class="page_title">
+            <h1 class="w">Update your note</h1>
+        </div>
+        <div class="note_form">
+            <div class="box">
+                <div class="box-divider m-0"></div>
+                <div class="box-body">
+                    <form method="POST" id="noteForm" enctype="multipart/form-data"
+                        onsubmit="submitForm(); return false;">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="title" class="col-sm-2 form-control-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="title" class="form-control" id="title" placeholder="Note Title"
+                                    value="{{ user_note.title }}">
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group button">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <input type="submit" class="btn btn-outline-success txt-success rounded buttons"
-                                name="update_note" value="Update">
-                            <a href="{% url 'UserData:note_description' usernameee user_note.pk %}" class="btn btn-outline-danger txt-danger rounded cancel_btn">Cancel</a>
+                        <div class="form-group row">
+                            <label for="note-description" class="col-sm-2 form-control-label">Note Description</label>
+                            <div class="col-sm-10">
+                                <textarea name="note_description" id="note-description"
+                                    rows="10">{{ user_note.description }}</textarea>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                        <div class="form-group row">
+                            <label for="tags" class="col-sm-2 form-control-label">Tags</label>
+                            <div class="col-sm-10">
+                                <div id="tags-container" style="display: flex; flex-wrap: wrap;">
+                                    <!-- Tags will be dynamically added here -->
+                                </div>
+                                <input type="text" class="form-control" id="tag-input" placeholder="Add a tag">
+                                <button type="button" class="btn btn-success btn-sm mt-2 tag_btn" onclick="addTag()">Add
+                                    Tag</button>
+
+                                <!-- Add this input field to serialize and pass the tagsArray -->
+                                <input type="hidden" name="tags_array" id="tags-array" value="">
+                            </div>
+                        </div>
+                        <!-- Image Section -->
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-2 form-control-label">Images</label>
+                            <div class="col-sm-10">
+                                <input name="images" type="file" class="form-control" style="height: 45px;" multiple>
+                                <div id="image-preview">
+                                    {% for image in images %}
+                                    <img src="{{ mediaUrl }}{{ image.image }}" alt="" width="200px" height="200px">
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group button" style="display: flex;
+                        justify-content: center;
+                        gap: 10px;
+                        margin: 0;">
+                                <input type="submit" class="btn btn-success rounded buttons"
+                                    name="update_note" value="Update">
+                                <a href="{% url 'UserData:note_description' usernameee user_note.pk %}"
+                                    class="btn btn-danger rounded cancel_btn">Cancel</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-<script data-tags="{{user_note.tags}}">
-    // Initialize CKEditor
-    CKEDITOR.replace('note-description');
-    const data = document.currentScript.dataset;
+    <script data-tags="{{user_note.tags}}">
+        // Initialize CKEditor
+        CKEDITOR.replace('note-description');
+        const data = document.currentScript.dataset;
 
-    // Tags handling
-    var tagsArray = []
-    console.log(data.tags)
-    if(data.tags != ""){
-        tagsArray = data.tags.split(",");
-        updateTagsContainer();
-    }
+        // Tags handling
+        var tagsArray = []
+        console.log(data.tags)
+        if (data.tags != "") {
+            tagsArray = data.tags.split(",");
+            updateTagsContainer();
+        }
 
-    function addTag() {
-        var tagInput = $('#tag-input');
-        var tagValue = tagInput.val().trim();
+        function addTag() {
+            var tagInput = $('#tag-input');
+            var tagValue = tagInput.val().trim();
 
-        if (tagValue !== '') {
-            // Check if the tag already exists
-            if (tagsArray.indexOf(tagValue) === -1) {
-                // Add tag to the array
-                tagsArray.push(tagValue);
+            if (tagValue !== '') {
+                // Check if the tag already exists
+                if (tagsArray.indexOf(tagValue) === -1) {
+                    // Add tag to the array
+                    tagsArray.push(tagValue);
 
-                // Update the tags-container
-                updateTagsContainer();
-                // Clear the input field
-                tagInput.val('');
+                    // Update the tags-container
+                    updateTagsContainer();
+                    // Clear the input field
+                    tagInput.val('');
+                }
             }
         }
-    }
 
-    function removeTag(tagValue) {
-        // Remove tag from the array
-        tagsArray = tagsArray.filter(function (tag) {
-            return tag !== tagValue;
-        });
+        function removeTag(tagValue) {
+            // Remove tag from the array
+            tagsArray = tagsArray.filter(function (tag) {
+                return tag !== tagValue;
+            });
 
-        // Update the tags-container
-        updateTagsContainer();
-    }
-
-    function updateTagsContainer() {
-        var tagContainer = $('#tags-container');
-        tagContainer.empty();
-
-        for (var i = 0; i < tagsArray.length; i++) {
-            var tagElement = $('<div class="badge badge-primary m-1"></div>').text(tagsArray[i]);
-            var removeButton = $('<button type="button" class="btn btn-danger btn-sm ml-1">Remove</button>');
-
-            // Event handler for removing the tag
-            removeButton.click(createRemoveHandler(tagsArray[i]));
-
-            tagElement.append(removeButton);
-            tagContainer.append(tagElement);
+            // Update the tags-container
+            updateTagsContainer();
         }
-        // Update the hidden input field with the serialized tagsArray
-        $('#tags-array').val(JSON.stringify(tagsArray));
-    }
 
-    function createRemoveHandler(tagValue) {
-        return function () {
-            removeTag(tagValue);
-        };
-    }
-</script>
+        function updateTagsContainer() {
+            var tagContainer = $('#tags-container');
+            tagContainer.empty();
+
+            for (var i = 0; i < tagsArray.length; i++) {
+                var tagElement = $('<div class="badge badge-primary m-1"></div>').text(tagsArray[i]);
+                var removeButton = $('<button type="button" class="btn btn-danger btn-sm ml-1">Remove</button>');
+
+                // Event handler for removing the tag
+                removeButton.click(createRemoveHandler(tagsArray[i]));
+
+                tagElement.append(removeButton);
+                tagContainer.append(tagElement);
+            }
+            // Update the hidden input field with the serialized tagsArray
+            $('#tags-array').val(JSON.stringify(tagsArray));
+        }
+
+        function createRemoveHandler(tagValue) {
+            return function () {
+                removeTag(tagValue);
+            };
+        }
+    </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

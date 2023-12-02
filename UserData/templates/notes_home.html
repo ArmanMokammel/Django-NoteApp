@@ -5,13 +5,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Notes</title>
+    <title>Notes of {{usernameee}}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'notes_home.css' %}">
+    <style>
+        .tag {
+            background-color: #335C81;
+            padding: 5px;
+            font-size: 20px;
+            border-radius: 5px;
+            color: white;
+            margin-right: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tag:hover {
+            background: linear-gradient( #1D2951, #274060);
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <div class="user_side">
-        <h1 class="w">Welcome {{usernameee}} </h1>
+    <div class="user_side" style="display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+    gap: 10px;">
+        <h1 class="w" style="text-align:center;">Welcome {{usernameee}} </h1>
 
         <div class="create_note">
             <a href="{% url 'UserData:add_note' usernameee %}" class="btn btn-outline-success txt-success rounded buttons">Take a New Note</a>
@@ -21,10 +41,12 @@
 
     <div class="notes_container">
         <div class="box">
-            <div class="box-header">
+            <div class="box-header" style="display: flex;
+            flex-direction: column;
+            align-items: flex-end;">
                 <br><br>
-                <label style="margin-left:5px;">Search</label>
-                <input class="form-control w-75 input-field" type="text" id="searchInput" placeholder="Search by title or tags" onkeyup="searchTable()">
+                {% comment %} <label style="margin-left:5px;">Search</label> {% endcomment %}
+                <input class="form-control w-75 input-field" type="text" id="searchInput" placeholder="Search by title or tags" onkeyup="searchTable()" style="max-width: 400px;">
                 <br><br>
             </div>
             <div class="table-responsive" style="max-height:300px; overflow-y:auto;">
@@ -42,8 +64,8 @@
                             <td> {{forloop.counter}} </td>
                             <td> <a href="{% url 'UserData:note_description' usernameee note.pk %}" class="note-link"> {{note.title}} </a></td>
                             <td>
-                                <span class="tag">tag1</span>
-                                <span class="tag">tag2</span>
+                                <span class="tag">#tag1</span>&nbsp;&nbsp;
+                                <span class="tag">#tag2</span>&nbsp;&nbsp;
                             </td>
                         </tr>
                         {% endfor %}

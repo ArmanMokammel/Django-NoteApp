@@ -4,8 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In & Sign Up Form</title>
+    <title>Note App</title>
     <link rel="stylesheet" href="{% static 'index-style.css' %}">
+    <style>
+        #login, #signup {
+            top: 162px;
+        }
+        p{
+            text-align: center;
+            margin-top: 10px;
+            background-color: #eb8a8a;
+            border-radius: 10px;
+            padding: 6px;
+        }
+    </style>
 </head>
 <body>
     <div class="ohio">
@@ -15,7 +27,13 @@
                 <button type="button" class="toggle-btn" onclick="login()">Log In</button>
                 <button type="button" class="toggle-btn" onclick="signin()">Sign Up</button>
             </div>
-
+            <div class="title">
+                <h3 style="text-align: center;
+                font-size: 25px;
+                font-family: roboto;
+                text-transform: uppercase;
+                color: darkblue;">Note App</h3>
+            </div>
             <form method="POST" id="login" class="input-group">
                 {% csrf_token %}
                 <input type="text" class="input-field" name="login_username" placeholder="Username" required>
