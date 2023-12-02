@@ -10,64 +10,77 @@
     <link rel="stylesheet" href="{% static 'add_note.css' %}">
     <!-- CKEditor CDN -->
     <script src="https://cdn.ckeditor.com/4.17.0/standard-all/ckeditor.js"></script>
+    <style>
+        .main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-  
-    <div class="page_title">
-        <h1 class="w">Create a New Note</h1>
-    </div>
-    <div class="col-md-6 note_form">
-        <div class="box">
-            <div class="box-divider m-0"></div>
-            <div class="box-body">
-                <form method="POST" enctype="multipart/form-data" id="noteForm">
-                    {% csrf_token %}
-                    <div class="form-group row">
-                        <label for="title" class="col-sm-2 form-control-label">Title</label>
-                        <div class="col-sm-10">
-                            <input name="title" type="text" class="form-control input-field" id="title" placeholder="Note Title" required>
-                        </div>
-                    </div>
-
-                    <!-- CKEditor for Note Description -->
-                    <div class="form-group row">
-                        <label for="note-description" class="col-sm-2 form-control-label">Note Description</label>
-                        <div class="col-sm-10">
-                            <textarea name="note_description" id="note-description" class="form-control input-field" rows="10"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="tags" class="col-sm-2 form-control-label">Tags</label>
-                        <div class="col-sm-10">
-                            <div id="tags-container" class="tags-container">
-                                <!-- Tags will be dynamically added here -->
+    <div class="main">
+        <div class="page_title">
+            <h1 class="w">Create a New Note</h1>
+        </div>
+        <div class="note_form">
+            <div class="box">
+                <div class="box-divider m-0"></div>
+                <div class="box-body">
+                    <form method="POST" enctype="multipart/form-data" id="noteForm">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="title" class="col-sm-2 form-control-label">Title</label>
+                            <div class="col-sm-10">
+                                <input name="title" type="text" class="form-control input-field" id="title"
+                                    placeholder="Note Title" required>
                             </div>
-                            <input type="text" class="form-control input-field" id="tag-input" placeholder="Add a tag">
-                            <button type="button" class="btn btn-success btn-sm mt-2 rounded tag_btn" onclick="addTag()">Add Tag</button>
-                            <!-- Add this input field to serialize and pass the tagsArray -->
-                            <input type="hidden" name="tags_array" id="tags-array" value="">
                         </div>
-                    </div>
 
-                    <!-- Image Section -->
-                    <div class="form-group row">
-                        <label for="inputPassword3" class="col-sm-2 form-control-label">Add Image</label>
-                        <div class="col-sm-10">
-                            <input name="images" type="file" class="form-control input-field" multiple>
+                        <!-- CKEditor for Note Description -->
+                        <div class="form-group row">
+                            <label for="note-description" class="col-sm-2 form-control-label">Note Description</label>
+                            <div class="col-sm-10">
+                                <textarea name="note_description" id="note-description" class="form-control input-field"
+                                    rows="10"></textarea>
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group row">
+                            <label for="tags" class="col-sm-2 form-control-label">Tags</label>
+                            <div class="col-sm-10">
+                                <div id="tags-container" class="tags-container">
+                                    <!-- Tags will be dynamically added here -->
+                                </div>
+                                <input type="text" class="form-control input-field" id="tag-input"
+                                    placeholder="Add a tag">
+                                <button type="button" class="btn btn-success btn-sm mt-2 rounded tag_btn"
+                                    onclick="addTag()">Add Tag</button>
+                                <!-- Add this input field to serialize and pass the tagsArray -->
+                                <input type="hidden" name="tags_array" id="tags-array" value="">
+                            </div>
+                        </div>
 
-                    <div class="form-group button">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <input type="submit" class="btn btn-outline-success txt-success rounded buttons" name="create_note" value="Create">
-                            <a href="{% url 'UserData:notes_home' usernameee %}" class="btn btn-outline-danger txt-danger rounded cancel_btn">Cancel</a>
+                        <!-- Image Section -->
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-2 form-control-label">Add Image</label>
+                            <div class="col-sm-10">
+                                <input name="images" type="file" class="form-control input-field" multiple>
+                            </div>
                         </div>
-                    </div>
-                </form>
+
+                        <div class="form-group button">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="submit" class="btn btn-outline-success txt-success rounded buttons"
+                                    name="create_note" value="Create">
+                                <a href="{% url 'UserData:notes_home' usernameee %}"
+                                    class="btn btn-outline-danger txt-danger rounded cancel_btn">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -131,4 +144,5 @@
         }
     </script>
 </body>
+
 </html>

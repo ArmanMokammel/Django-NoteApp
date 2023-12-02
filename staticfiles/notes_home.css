@@ -1,26 +1,86 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
+    padding: 0;
+    height: 100vh;
+    margin: 0;
 }
-.user_side{
+
+.user_side {
     margin-left: 3vh;
     margin-top: 2vh;
 }
-.user_side .w{
+
+.user_side .w {
     font-size: 7vh;
 }
-.user_side .create_note{
+
+.user_side .create_note {
     margin-left: 10px;
 }
-.user_side .logout{
+
+.user_side .logout {
     margin-left: 190vh;
     margin-right: 10px;
     margin-bottom: 5px;
 }
-.notes_container{
-    margin: 3vh 3vh 3vh ;
+
+.notes_container {
+    margin: 3vh 3vh 3vh;
 }
-td{
-    max-width:5vh;
-    max-height: 3vh;
+
+.input-field {
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:hover,
+.input-field:focus {
+    border-color: #28a745; 
+}
+
+.buttons {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.buttons:hover {
+    background: linear-gradient( #74D680, #378B29 ); 
+    color: #fff;
+}
+.log_buttons{
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.log_buttons:hover {
+    background: linear-gradient( #FF0000,   #990000 );  
+    color: #fff; 
+}
+
+.table7 th, .table7 td {
+    border: 1px solid #dee2e6;
+    color: #12100E;
+}
+
+.note-link {
+    text-decoration: none;
+    color: #12100E;
+    transition: color 0.3s ease;
+}
+
+.note-link:hover {
+    color: #0056b3;
+}
+
+.tag {
+    background-color: #335C81;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    color: white;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.tag:hover {
+    background: linear-gradient( #1D2951, #274060);
+    color: #fff;
 }
